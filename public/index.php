@@ -7,8 +7,6 @@
  * @author   Taylor Otwell <taylor@laravel.com>
  */
 
- echo "hello word";
- die();
 define('LARAVEL_START', microtime(true));
 
 /*
@@ -23,6 +21,8 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
+echo "hello word";
+die();
 require __DIR__.'/../vendor/autoload.php';
 
 /*
