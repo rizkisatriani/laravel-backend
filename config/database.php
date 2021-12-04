@@ -45,9 +45,9 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'url' => env('DATABASE_URL', 'us-cdbr-east-04.cleardb.com'),
+            // 'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', 'us-cdbr-east-04.cleardb.com'),
-            'port' => env('DB_PORT', '3306'),
+            // 'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'heroku_3e086033b15717b'),
             'username' => env('DB_USERNAME', 'b116669c288d93'),
             'password' => env('DB_PASSWORD', '3e36fe61'),
@@ -55,12 +55,12 @@ return [
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
-            'prefix_indexes' => true,
-            'strict' => true,
-            'engine' => null,
-            'options' => extension_loaded('pdo_mysql') ? array_filter([
-                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-            ]) : [],
+            // 'prefix_indexes' => true,
+            'strict' => false,
+            // 'engine' => null,
+            // 'options' => extension_loaded('pdo_mysql') ? array_filter([
+            //     PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            // ]) : [],
         ],
 
         'pgsql' => [
