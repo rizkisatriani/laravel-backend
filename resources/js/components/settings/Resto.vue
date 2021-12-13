@@ -6,14 +6,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Data Resto</h1>
-                        <p><b>Data Resto</b> merupakan daftar atribute resto mencakup Nama, alamat ,kordinat dll.  </p>
+                        <h1>User Subscribe Ruang Guru</h1>
+                        <p><b>Prize</b> for user  </p>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">Master</a></li>
-                            <li class="breadcrumb-item active">Level</li>
+                            <li class="breadcrumb-item"><a href="#">Subscriptions</a></li> 
                         </ol>
                     </div>
                 </div>
@@ -27,7 +26,7 @@
                         <!-- Default box -->
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Daftar Jenis</h3>
+                                <h3 class="card-title">List Of User</h3>
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                         <i class="fa  fa-minus"></i></button>
@@ -35,15 +34,17 @@
                                         <i class="fa  fa-times"></i></button>
                                 </div>
                             </div>
-                            <div class="card-body table-responsive   ">
-                                <button class='btn btn-primary btn-sm ' @click="showmodal_add()"><i class="fa  fa-plus"></i><span> Tambah</span></button>
+                            <div class="card-body table-responsive   ">     
                                 <div class="base-demo">
                                     <vue-table-dynamic :params="params" >
-                                        <template v-slot:column-6="{ props }">
-                                            <span class="cell--slot-2">
-                                                <button class="btn btn-outline-primary btn-xs lg-6" size="mini" @click="view(props)">View</button>
-                                                <button class="btn btn-outline-success btn-xs lg-6" size="mini" @click="testSlot(props)">Edit</button> 
-                                                <button class="btn btn-outline-danger btn-xs lg-6" size="mini" @click="delete_data(props)">Delete</button> 
+                                        <template v-slot:column-5="{ props }">
+                                            <span class="cell--slot-2">  
+                                               <select v-model="props.rowData[5].data"> 
+                                                <option>Created</option>
+                                                <option>Rejected</option>
+                                                <option>In Order</option>
+                                                </select>
+                                                <button class="btn btn-outline-primary btn-xs lg-6" size="mini" @click="update(props)">Process</button> 
                                             </span>
                                         </template>
                                     </vue-table-dynamic>
@@ -61,11 +62,11 @@
             </div>
         </section>
         <!-- /.content -->
-        <div class="modal fade" id="modal-default" ref="modal">
+        <!-- <div class="modal fade" id="modal-default" ref="modal">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Data Resto</h4>
+                        <h4 class="modal-title">Data User</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -113,12 +114,10 @@
                         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary btn-sm" @click="save_modal()">Save changes</button>
                     </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-  <div class="modal fade" id="modal-default" ref="modal_maps">
+                </div> 
+            </div> 
+        </div> -->
+  <!-- <div class="modal fade" id="modal-default" ref="modal_maps">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     
@@ -127,12 +126,9 @@
                         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary btn-sm" @click="save_modal()">Save changes</button>
                     </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-        <!-- /.modal -->
+                </div> 
+            </div> 
+        </div>   -->
     </div>
 </template>
 <script>
@@ -150,18 +146,19 @@ export default {
             renderComponent: true,
             loading: true,
             index: 0,
-            id: "",
-            status_name: "Aktif",
+            user_id: "",
+            status_name: "Created",
             modaledit: false,
             status: false,
             nama: '',
-            keterangan: '',
-            alamat: '',
-            kordinat: '',
+            keterangan:'',
+            user_delivery_address: '',
+            contact_number: '',
+            contact_person_name: '',
             params: {
                 header: 'row',
                 data: [
-                    ['No', `Nama`, `Keterangan`, `Alamat`, `Kordinat`, `Status`, `Action`]
+                    ['No', `User Id` , `User Delivery Address`, `Contact Number`, `Contact Person Name`, `Status`]
                 ],
                 border: true,
                 enableSearch: true,
@@ -170,7 +167,7 @@ export default {
                 pagination: true,
                 pageSize: 10,
                 pageSizes: [5, 10, 20, 50],
-                columnWidth: [{ column: 0, width: 50 }, { column: 1, width: 200}, { column: 2, width: 250 }, { column: 3, width: 150 }, { column: 4, width:150 }, { column: 5, width: 150}, { column: 6, width: 150 }],
+                columnWidth: [{ column: 0, width: 90 }, { column: 1, width: 200}, { column: 2, width: 250 }, { column: 3, width: 250 }, { column: 4, width:250 }, { column: 5, width: 250}, { column: 6, width: 250 }],
                 height: 290 
 
                 /*,
@@ -184,7 +181,8 @@ export default {
     },
     components: { VueTableDynamic, 
             'pre-loader': preloader,  },
-    methods: {forceRerender() {
+    methods: {
+        forceRerender() {
         // Remove my-component from the DOM
         this.renderComponent = false;
 
@@ -278,25 +276,15 @@ export default {
                     method: 'post',
                     url: '/api/storeresto',
                     data: params
-                }).then(function(response) { 
-                    switch (response.data.data.status) {
-                        case 1:
-                            status = "Aktif";
-                            break;
-                        case 0:
-                            status = "Tidak Aktif";
-                            break;
-                        default:
-                    } 
+                }).then(function(response) {  
                     console.log(response.data.data.nama_resto);
                      this.params.data.push([
-                            this.params.data.length
+                             `${response.data.data.id}`
                             , `${response.data.data.nama_resto}`
                             , `${response.data.data.keterangan}`
                             , `${response.data.data.alamat}`
                             , `${response.data.data.coordinat}`
-                            , `${status}`
-                            , `${response.data.data.id}`]);
+                            , `${response.data.data.status}`]);
                     
                     this.nama = "";
                     this.keterangan = "";
@@ -306,93 +294,41 @@ export default {
             }
 
         },
-        update() {
-            if (this.nama == "") {
-                alert("Nama level belum di isi");
-            }else if (this.alamat == "") {
-                alert("Alamat Resto belum di isi");
-            } else if (this.kordinat == "") {
-                alert("kordinat resto belum di isi");
-            } else {
-          this.loading=true;
-                var ket = "-";
-                var status = 1;
-                if (this.keterangan == "") {
-
-                } else {
-                    ket = this.keterangan;
-                }
-                if (this.status == true) {
-                    status = 1;
-                } else {
-                    status = 0;
-                }
+        update(data) { 
+           
+          this.loading=true; 
+             
                 const params = new URLSearchParams();
-                params.append('nama', this.nama);
-                params.append('id', this.id);
-                params.append('alamat', this.alamat);
-                params.append('kordinat', this.kordinat);
-                params.append('keterangan', ket);
-                params.append('status', status);
+                params.append('id', data.rowData[0].data);
+                params.append('status', data.rowData[5].data); 
                 axios({
                     method: 'post',
-                    url: '/api/updateresto',
+                    url: '/api/edit-sub',
                     data: params
                 }).then(function(response) {
-                    /*this.params.data.slice(2,this.params.data.length); 
-                    this.showdata(); 
-                    console.log(response);*/
-                    console.log("update3",this.params.data[1][3]); 
-                    switch (response.data.data.status) {
-                        case 1:
-                            status = "Aktif";
-                            break;
-                        case 0:
-                            status = "Tidak Aktif";
-                            break;
-                        default:
-                    }
-                    /*this.params.data[this.index]=[this.params.data.length, response.data.data.nama, response.data.data.keterangan, status, response.data.data.id]*/
-                    let element = this.$refs.modal;
-
-                    this.id = "";
-                    this.nama = "";
-                    this.keterangan = "";
+              
                      this.$router.go();
-                }.bind(this));
-            }
+                }.bind(this)); 
  
         }, 
         showdata() {
             const headers = {
-                "Authorization": "Bearer my-token",
+                "Authorization": "Bearer if need token",
                 "My-Custom-Header": "foobar"
             };
-            axios.get("api/showresto", { headers })
-                .then(function(response) {
-                    var status = "";
+            axios.get("api/get-sub-ruang-guru", { headers })
+                .then(function(response) { 
                     for (let i = 0; i < response.data.data.length; i++) {
 
-                        switch (response.data.data[i].status) {
-                            case 1:
-                                status = "Aktif";
-                                break;
-                            case 0:
-                                status = "Tidak Aktif";
-                                break;
-                            default:
-                        }
+                        
                         this.params.data.push([
-                            i + 1
-                            , `${response.data.data[i].nama_resto}`
-                            , `${response.data.data[i].keterangan}`
-                            , `${response.data.data[i].alamat}`
-                            , `${response.data.data[i].coordinat}`
-                            , `${status}`
-                            , `${response.data.data[i].id}`]);
-                    }
-                    console.log(this.params.data);
-                    
+                              `${response.data.data[i].id}`
+                            , `${response.data.data[i].user_id}`
+                            , `${response.data.data[i].user_delivery_address}`
+                            , `${response.data.data[i].contact_number}`
+                            , `${response.data.data[i].contact_person_name}`
+                            , `${response.data.data[i].status}` ]);
+                    }  
                     this.loading = false;
                 }.bind(this)).catch(error => {
                     console.log(error)

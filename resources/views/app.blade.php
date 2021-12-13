@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
  
-    <title>Maps Kantin Ruang guru</title>
+    <title>User Subscribe Prize</title>
  
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">

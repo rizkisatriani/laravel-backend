@@ -21,5 +21,9 @@ Route::middleware('auth:api')->get('/level', function (Request $request) {
 Route::get('/showresto', 'PoiRestoController@Index');
 Route::post('/storeresto', 'PoiRestoController@store');
 Route::post('/updateresto', 'PoiRestoController@update'); 
-Route::post('/deleteresto', 'PoiRestoController@destroy'); 		
+Route::post('/deleteresto', 'PoiRestoController@destroy'); 	
+
+Route::get('/get-sub-ruang-guru', 'SubscriptionController@Index');
+Route::post('/add-sub', 'SubscriptionController@store');
+Route::post('/edit-sub', 'SubscriptionController@edit');
  

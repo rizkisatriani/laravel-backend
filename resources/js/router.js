@@ -10,7 +10,8 @@ import Router from 'vue-router'
 Vue.use(Router)
  
 import Resto from './components/settings/Resto.vue';
-import Maps from './components/settings/GoogleMapLoader.vue';   /*
+import Maps from './components/settings/GoogleMapLoader.vue'; 
+import Login from './components/Login.vue';   /*
 import Level from './components/settings/level.vue';   
 import Merk from './components/settings/Merk.vue';   
 import Type from './components/settings/Type.vue';  
@@ -20,14 +21,18 @@ import Barang from './components/master/Barang.vue';  */
 const router = new Router({ 
     mode:'history',
     routes:[{
-    path : '/Resto',
+    path : '/UserSub',
     name : 'Resto',
     component : Resto
     },{
     path : '/Maps',
     name : 'Maps',
     component : Maps
-    } ]});
+    },{
+        path : '/Login',
+        name : 'Login',
+        component : Login
+        } ]});
 
 /*router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
