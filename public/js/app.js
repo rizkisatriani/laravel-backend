@@ -2185,9 +2185,7 @@ __webpack_require__.r(__webpack_exports__);
         setTimeout(function () {
           _this.$router.push('login');
         }, 500);
-      } else {
-        this.$router.push('/');
-      }
+      } else {}
     }
   },
   updated: function updated() {
