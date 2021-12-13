@@ -34,8 +34,7 @@
               this.$router.push('login')
                 }, 500); 
           }else{
-              
-              this.$router.push('/')
+               
           }
         }
         },updated() {
